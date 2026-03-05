@@ -1,0 +1,50 @@
+# configs/train_config.yaml
+project_name: floorplan-diffusion
+
+# Data
+data_dir: data/msd_processed
+image_size: 512
+latent_size: 64
+latent_channels: 4
+
+# Room types (from MSD dataset)
+num_room_types: 13
+
+# Model
+vae_model: stabilityai/sd-vae-ft-mse
+condition_encoder:
+  in_channels: 3
+  out_channels: 4
+  base_channels: 64
+vit:
+  input_channels: 8  # 4 (noisy latent) + 4 (condition)
+  output_channels: 4
+  patch_size: 2
+  embed_dim: 768
+  depth: 28
+  num_heads: 16
+  mlp_ratio: 4.0
+
+# Diffusion
+num_timesteps: 1000
+beta_start: 0.0001
+beta_end: 0.02
+beta_schedule: linear
+
+# Training
+batch_size: 8  # per GPU, effective 32 with 4 GPUs
+epochs: 150
+learning_rate: 0.0001
+weight_decay: 0.01
+num_workers: 4
+seed: 42
+
+# Checkpointing
+checkpoint_dir: checkpoints
+save_every: 10
+sample_every: 5
+num_samples: 8
+
+# wandb
+wandb_project: floorplan-diffusion
+wandb_entity: null  # set to your wandb username/team
