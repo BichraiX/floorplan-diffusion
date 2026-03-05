@@ -2,7 +2,7 @@
 project_name: floorplan-diffusion
 
 # Data
-data_dir: data/msd_processed
+data_dir: dataset/msd_processed
 image_size: 512
 latent_size: 64
 latent_channels: 4
