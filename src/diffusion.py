@@ -33,7 +33,7 @@ class GaussianDiffusion:
     def _extract(self, a, t, x_shape):
         """Extract values from a at indices t, reshape for broadcasting with x_shape."""
         batch_size = t.shape[0]
-        out = a.gather(-1, t)
+        out = a.to(t.device).gather(-1, t)
         return out.reshape(batch_size, *((1,) * (len(x_shape) - 1)))
 
     def q_sample(self, x0, t, noise=None):
